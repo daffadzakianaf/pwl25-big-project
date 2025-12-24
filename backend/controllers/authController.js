@@ -10,6 +10,8 @@ dotenv.config();
  * POST /auth/register
  */
 export const register = async (req, res, next) => {
+  console.log('MASUK REGISTER CONTROLLER');
+  console.log(req.body);
   try {
     const { username, password, role } = req.body;
 

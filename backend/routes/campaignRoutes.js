@@ -9,7 +9,7 @@ import {
 
 import auth from '../middleware/authMiddleware.js';
 import role from '../middleware/roleMiddleware.js';
-import validate from '../middleware/validate.js';
+import validate from '../middleware/validateMiddleware.js';
 
 const router = express.Router();
 
