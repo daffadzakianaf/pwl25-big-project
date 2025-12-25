@@ -1,28 +1,27 @@
-const validate = (fields = []) => {
+const validate = (requiredFields = []) => {
   return (req, res, next) => {
-    // DEBUG LOG
-    console.log('VALIDATE MIDDLEWARE MASUK');
-    console.log('REQ BODY:', req.body);
-
-    if (!req.body || Object.keys(req.body).length === 0) {
+    if (!req.body) {
       return res.status(400).json({
-        message: 'Request body tidak boleh kosong'
+        message: 'Request body kosong'
       });
     }
 
-    if (fields.length > 0) {
-      const missing = fields.filter(field => !req.body[field]);
-      if (missing.length > 0) {
+    for (const field of requiredFields) {
+      if (
+        req.body[field] === undefined ||
+        req.body[field] === null ||
+        req.body[field] === ''
+      ) {
         return res.status(400).json({
-          message: `Field wajib diisi: ${missing.join(', ')}`
+          message: `Field '${field}' wajib diisi`
         });
       }
     }
 
-    // WAJIB ADA
     next();
   };
 };
 
 export default validate;
+
 
